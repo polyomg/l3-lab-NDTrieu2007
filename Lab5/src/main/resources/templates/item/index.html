@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8" /><title>Items</title></head>
+<body>
+<h3>Items</h3>
+<ul>
+    <th:block th:each="item : ${items}">
+        <li>
+            <span th:text="${item.name}"></span> (<span th:text="${item.price}"></span>)
+            :: [<a th:href="@{|/cart/add/${item.id}|}">Add To Cart</a>]
+        </li>
+    </th:block>
+</ul>
+
+<p><a href="/cart/view">View Cart</a></p>
+</body>
+</html>
