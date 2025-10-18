@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Shopping Cart</title>
+</head>
+<body>
+<h2>Giỏ hàng</h2>
+
+<table border="1" cellpadding="8">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Tên sản phẩm</th>
+        <th>Giá</th>
+        <th>Số lượng</th>
+        <th>Tổng</th>
+        <th>Thao tác</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="item : ${cart.items}">
+        <td th:text="${item.id}">1</td>
+        <td th:text="${item.name}">Laptop</td>
+        <td th:text="${item.price}">1500</td>
+        <td>
+            <form th:action="@{'/cart/update/' + ${item.id}}" method="post">
+                <input type="number" name="qty" th:value="${item.qty}" min="1" />
+                <button type="submit">Cập nhật</button>
+            </form>
+        </td>
+        <td th:text="${item.price * item.qty}">1500</td>
+        <td>
+            <a th:href="@{'/cart/remove/' + ${item.id}}">Xóa</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<h3>Tổng tiền: <span th:text="${cart.amount}"></span></h3>
+<h4>Tổng số lượng: <span th:text="${cart.count}"></span></h4>
+
+<a href="/cart/clear">Xóa toàn bộ</a> |
+<a href="/item/index">Quay lại danh sách sản phẩm</a>
+
+</body>
+</html>
